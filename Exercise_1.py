@@ -32,4 +32,4 @@ df_to_json['conveyance'] = df.groupby('expedition')['conveyance'].agg('first')
 # Convert back to JSON
 result = df_to_json.to_json(orient = "index")
 parsed = json.loads(result)
-json.dumps(parsed, indent = 4)
+print(json.dumps(parsed, indent = 4))
