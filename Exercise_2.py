@@ -15,10 +15,6 @@ Created on Sun Dec  6 17:39:02 2020
 """
 
 import requests
-import urllib.request, json
-
-import xarray as xr
-import netCDF4
 import pandas as pd
 
 import matplotlib.pyplot as plt
@@ -30,11 +26,17 @@ def create_df(url, depth):
     Function that gathers the permafrostdata from the different 
     depths in one dataframe
     
-    Input: <string> url
-    Output: <DataFrame> Pandas DataFrame
+    Input: 
+    
+    url     -   <string> url to JSON data
+    depth   -   <string> depth the data are taken from
+        
+    Output: 
+        
+    df      -   <DataFrame> Pandas DataFrame
     """
-    f = requests.get(url).json()
-    data = f.pop(0)
+    json_data = requests.get(url).json()
+    data = json_data.pop(0)
     
     df = pd.DataFrame(data['data'])
     df['when'] = pd.to_datetime(df['when'])
@@ -57,15 +59,31 @@ if __name__ == '__main__':
     
     # Visualization
     fig, ax = plt.subplots()
-    df.plot(color = ['blue', 'red', 'green'], ax = ax)
-    ax.yaxis.set_tick_params(which='major', labelcolor='blue')
-    fig.suptitle('Ground temperature in permafrost, Janssonhaugen', size = 12)
+    df.plot(color = ['blue', 'red', 'green'], 
+            ax = ax
+            )
+    ax.yaxis.set_tick_params(which='major', 
+                             labelcolor='blue'
+                             )
+    fig.suptitle('Ground temperature in permafrost, Janssonhaugen', 
+                 size = 12
+                 )
     ax.yaxis.grid()
     ax.minorticks_off()
     ax.set_ylim(-6.5, -4.25)
-    ax.set_ylabel(r'Temperature $^{\circ}$C', color = 'blue')
+    ax.set_ylabel(r'Temperature $^{\circ}$C', 
+                  color = 'blue'
+                  )
     ax.set(xlabel = None)
-    ax.legend(loc = 'lower center', bbox_to_anchor = (0.5,-0.3), ncol = 3, frameon = False)
-    sns.despine(left=True, right=True)
-    plt.savefig('Exercise_2.png', bbox_inches = 'tight')
+    ax.legend(loc = 'lower center', 
+              bbox_to_anchor = (0.5,-0.3), 
+              ncol = 3, 
+              frameon = False
+              )
+    sns.despine(left=True, 
+                right=True
+                )
+    plt.savefig('Exercise_2.png', 
+                bbox_inches = 'tight'
+                )
     
