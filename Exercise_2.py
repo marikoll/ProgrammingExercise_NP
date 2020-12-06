@@ -86,4 +86,5 @@ if __name__ == '__main__':
     plt.savefig('Exercise_2.png', 
                 bbox_inches = 'tight'
                 )
+    plt.show()
     
