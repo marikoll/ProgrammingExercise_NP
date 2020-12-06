@@ -1,0 +1,1 @@
+Answer to programming excersises provided by NP
